@@ -1,0 +1,105 @@
+{
+  "active": false,
+  "connections": {
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Telegram",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-03-14T16:23:03.554Z",
+  "id": "CQj1WYM43HKEWs8d",
+  "meta": {
+    "templateId": "782"
+  },
+  "name": "Receive updates from Telegram and send an image",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "name": "Telegram Trigger",
+      "type": "n8n-nodes-base.telegramTrigger",
+      "position": [
+        380,
+        240
+      ],
+      "webhookId": "806cc2c6-c687-4022-a82e-658e4a684e73",
+      "typeVersion": 1,
+      "id": "1a29627f-61f5-4332-a267-ee96abd9bf24",
+      "credentials": {
+        "telegramApi": {
+          "id": "2w1ddXaYOgblbCbu",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "https://www.thecocktaildb.com/api/json/v1/1/random.php",
+        "options": {}
+      },
+      "name": "HTTP Request",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [
+        600,
+        240
+      ],
+      "typeVersion": 1,
+      "id": "3c636fb6-3636-4729-a7ca-085ec1845f39"
+    },
+    {
+      "parameters": {
+        "operation": "sendPhoto",
+        "chatId": "={{$node[\"Telegram Trigger\"].json[\"message\"][\"chat\"][\"id\"]}}",
+        "file": "={{$node[\"HTTP Request\"].json[\"drinks\"][0][\"strDrinkThumb\"]}}",
+        "additionalFields": {
+          "caption": "={{$node[\"HTTP Request\"].json[\"drinks\"][0][\"strDrink\"]}}",
+          "reply_to_message_id": "={{$node[\"Telegram Trigger\"].json[\"message\"][\"message_id\"]}}"
+        }
+      },
+      "name": "Telegram",
+      "type": "n8n-nodes-base.telegram",
+      "position": [
+        820,
+        240
+      ],
+      "typeVersion": 1,
+      "id": "2c00145b-dc8d-4120-80cf-3573709c0d3b",
+      "webhookId": "fb9ba2b0-1293-40da-bb7a-54db0c005fd5",
+      "credentials": {
+        "telegramApi": {
+          "id": "2w1ddXaYOgblbCbu",
+          "name": "Telegram account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "settings": {},
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2025-03-14T16:27:01.000Z",
+  "versionId": "bc9ba810-e7ba-4f02-b843-fe194b2b527e"
+}
