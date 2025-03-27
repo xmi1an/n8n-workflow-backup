@@ -1,0 +1,236 @@
+{
+  "active": false,
+  "connections": {
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Telegram",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "To Generate Image": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "To Generate Image1": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-03-14T04:45:28.351Z",
+  "id": "wdC2pi9cQbTKpUpP",
+  "meta": {
+    "templateId": "2114"
+  },
+  "name": "Chat with OpenAIs GPT via a simple Telegram Bot",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "id": "0b4eb8e4-e98b-4f67-b134-914a5aa46b4d",
+      "name": "Telegram Trigger",
+      "type": "n8n-nodes-base.telegramTrigger",
+      "position": [
+        360,
+        180
+      ],
+      "webhookId": "9c8b833c-7aa7-430d-8fc0-47936f695ddf",
+      "typeVersion": 1.1,
+      "credentials": {
+        "telegramApi": {
+          "id": "2w1ddXaYOgblbCbu",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": "gpt-4o",
+        "options": {}
+      },
+      "id": "339246f2-76cb-44c4-8828-da0cb5d3ad5e",
+      "name": "OpenAI Chat Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "position": [
+        480,
+        460
+      ],
+      "typeVersion": 1,
+      "credentials": {
+        "openAiApi": {
+          "id": "ni4ZLtUYB3SLkvdX",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "agent": "openAiFunctionsAgent",
+        "text": "=Respond to this as a helpful assistant with emojis:  {{ $json.message.text }}",
+        "options": {}
+      },
+      "id": "70a981e2-7833-473b-a27a-fedf860901cb",
+      "name": "AI Agent",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "position": [
+        580,
+        180
+      ],
+      "typeVersion": 1.2
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "text": "={{ $json.output }}",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "id": "fb6ff65b-56b4-44c4-978a-b9a5c3d535d6",
+      "name": "Telegram",
+      "type": "n8n-nodes-base.telegram",
+      "position": [
+        920,
+        180
+      ],
+      "typeVersion": 1.1,
+      "webhookId": "e36be917-0a53-4338-9c29-7dbf85bf61c9",
+      "credentials": {
+        "telegramApi": {
+          "id": "2w1ddXaYOgblbCbu",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "toolDescription": "To Generate Image.",
+        "method": "POST",
+        "url": "https://api.monsterapi.ai/v1/generate/sdxl-base",
+        "sendHeaders": true,
+        "parametersHeaders": {
+          "values": [
+            {
+              "name": "Authorization",
+              "valueProvider": "fieldValue",
+              "value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6ImI1NmVlZWU0MDNmOGQ3OTk4MWM1M2JhZDM3MDZhNDM1IiwiY3JlYXRlZF9hdCI6IjIwMjUtMDEtMTFUMjE6NTU6MzguMjYwNDcxIn0.vVndqe3J5XnPILY8ndeCWRwjMU39H61mYp8CJZCYpXU"
+            }
+          ]
+        },
+        "sendBody": true,
+        "parametersBody": {
+          "values": [
+            {
+              "name": "prompt",
+              "valueProvider": "fieldValue",
+              "value": "{text}"
+            },
+            {
+              "name": "steps",
+              "valueProvider": "fieldValue",
+              "value": "30"
+            },
+            {
+              "name": "style",
+              "valueProvider": "fieldValue",
+              "value": "realism"
+            },
+            {
+              "name": "aspect_ratio",
+              "valueProvider": "fieldValue",
+              "value": "square"
+            },
+            {
+              "name": "negprompt",
+              "valueProvider": "fieldValue",
+              "value": "poor quality,bad,ugly"
+            }
+          ]
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolHttpRequest",
+      "typeVersion": 1.1,
+      "position": [
+        700,
+        460
+      ],
+      "id": "87f441cf-e957-4b17-8bd2-01ebb13b26cf",
+      "name": "To Generate Image"
+    },
+    {
+      "parameters": {
+        "toolDescription": "To Get status of Generate Image by process_id.",
+        "url": "https://api.monsterapi.ai/v1/status/{path}",
+        "sendHeaders": true,
+        "parametersHeaders": {
+          "values": [
+            {
+              "name": "Authorization",
+              "valueProvider": "fieldValue",
+              "value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6ImI1NmVlZWU0MDNmOGQ3OTk4MWM1M2JhZDM3MDZhNDM1IiwiY3JlYXRlZF9hdCI6IjIwMjUtMDEtMTFUMjE6NTU6MzguMjYwNDcxIn0.vVndqe3J5XnPILY8ndeCWRwjMU39H61mYp8CJZCYpXU"
+            }
+          ]
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolHttpRequest",
+      "typeVersion": 1.1,
+      "position": [
+        900,
+        460
+      ],
+      "id": "abc8f8c8-ade9-4e6f-8c8e-18bdff1c1fad",
+      "name": "To Generate Image1"
+    }
+  ],
+  "pinData": {},
+  "settings": {},
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-03-14T06:25:44.000Z",
+  "versionId": "8daadd2e-2055-4905-b7e4-b1a2afebd994"
+}
