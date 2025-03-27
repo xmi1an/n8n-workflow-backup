@@ -1,0 +1,155 @@
+{
+  "active": false,
+  "connections": {
+    "When clicking ‘Test workflow’": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-03-24T05:11:44.138Z",
+  "id": "gBn5evwT9DTJ6gyo",
+  "meta": null,
+  "name": "Test anything",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -240,
+        -20
+      ],
+      "id": "fb78e5e4-f0fe-44c7-96db-d19fa9d75e2e",
+      "name": "When clicking ‘Test workflow’"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://erp.ngu.ac.in/erp/qpds/Form_Paper_Download.aspx",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "Key",
+              "value": "afami7bucFpRfBSivHGrv2pCYyFAm0aSPbOtAuQAK3Q5Yu1cGyBBpSKRz0G3slssDud8874UcytYkxMKsPEV9Qfnjted5E05"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "*/*"
+            },
+            {
+              "name": "accept-language",
+              "value": "en,hi;q=0.9"
+            },
+            {
+              "name": "cache-control",
+              "value": "no-cache"
+            },
+            {
+              "name": "dnt",
+              "value": "1"
+            },
+            {
+              "name": "origin",
+              "value": "https://erp.ngu.ac.in"
+            },
+            {
+              "name": "priority",
+              "value": "u=1, i"
+            },
+            {
+              "name": "referer",
+              "value": "https://erp.ngu.ac.in/erp/qpds/Form_Paper_Download.aspx?Key=afami7bucFpRfBSivHGrv2pCYyFAm0aSPbOtAuQAK3Q5Yu1cGyBBpSKRz0G3slssDud8874UcytYkxMKsPEV9Qfnjted5E05"
+            },
+            {
+              "name": "sec-ch-ua",
+              "value": "\"Chromium\";v=\"134\", \"Not:A-Brand\";v=\"24\", \"Brave\";v=\"134\""
+            },
+            {
+              "name": "sec-ch-ua-mobile",
+              "value": "?1"
+            },
+            {
+              "name": "sec-ch-ua-platform",
+              "value": "\"Android\""
+            },
+            {
+              "name": "sec-fetch-dest",
+              "value": "empty"
+            },
+            {
+              "name": "sec-fetch-mode",
+              "value": "cors"
+            },
+            {
+              "name": "sec-fetch-site",
+              "value": "same-origin"
+            },
+            {
+              "name": "sec-gpc",
+              "value": "1"
+            },
+            {
+              "name": "user-agent",
+              "value": "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Mobile Safari/537.36"
+            },
+            {
+              "name": "x-microsoftajax",
+              "value": "Delta=true"
+            },
+            {
+              "name": "x-requested-with",
+              "value": "XMLHttpRequest"
+            },
+            {
+              "name": "cookie",
+              "value": "ASP.NET_SessionId=sqlz1agvmuuf15ftvi2nq3ik;"
+            },
+            {
+              "name": "cookie",
+              "value": "ASP.NET_SessionId=sqlz1agvmuuf15ftvi2nq3ik;"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "raw",
+        "rawContentType": "application/x-www-form-urlencoded; charset=UTF-8",
+        "body": "ctl00$ScriptManager1",
+        "options": {
+          "redirect": {
+            "redirect": {}
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        100,
+        -20
+      ],
+      "id": "7b4c78ef-2ada-4b8f-b058-5f8326b98093",
+      "name": "HTTP Request"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-03-24T09:07:42.000Z",
+  "versionId": "729a1906-907e-47ac-b83b-54c6564da5fd"
+}
