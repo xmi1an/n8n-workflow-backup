@@ -1,0 +1,845 @@
+{
+  "active": false,
+  "connections": {
+    "Basic LLM Chain": {
+      "main": [
+        [
+          {
+            "node": "Search All Files",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser1": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "BestMatchLLM",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "BestMatchLLM",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "BestMatchLLM": {
+      "main": [
+        [
+          {
+            "node": "Search Specific File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GrabFileNames": {
+      "main": [
+        [
+          {
+            "node": "BestMatchLLM",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "GetMessageData",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Text Classifier": {
+      "main": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Search All Files": {
+      "main": [
+        [
+          {
+            "node": "GrabFileNames",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Search Specific File": {
+      "main": [
+        [
+          {
+            "node": "If File Found Or Not",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If File Found Or Not": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "No File Found",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Normal AI Reply",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Redis Chat Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat2": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Text Classifier",
+            "type": "ai_languageModel",
+            "index": 0
+          },
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GetMessageData": {
+      "main": [
+        [
+          {
+            "node": "Auth",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Google Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Auth": {
+      "main": [
+        [
+          {
+            "node": "Text Classifier",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "NotAllowed",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "NotAllowed": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "createdAt": "2025-03-16T15:45:19.501Z",
+  "id": "mQ3KE5vp7kZzo8iX",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "BCA WP Chatbot Latest",
+  "nodes": [
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.userMessage }}",
+        "hasOutputParser": true,
+        "messages": {
+          "messageValues": [
+            {
+              "message": "Your task is to generate file name (in single word) based on the user's Google Drive search request.\n\nDo not include file extensions. To ensure the search results are more comprehensive, reduce the search keyword to a broader term. For example, if the user searches for \"Python Unit 1 pdf,\" return just \"Python\" as the search term.\n\n- If the user makes a spelling mistake, correct it but don't change entire word.\n- If the user requests files related to personal documents, use the following details for context:\n    - Bio Data:\n        - Name: Milan Jadav\n        - Father’s Name: Rameshchandra Jadav\n"
+            }
+          ]
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.5,
+      "position": [
+        760,
+        220
+      ],
+      "id": "06fa30cb-8247-4ad0-849e-4feb1c38b30c",
+      "name": "Basic LLM Chain"
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "{\n\t\"file_name\": \"file name<exclude extention>\"\n}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.2,
+      "position": [
+        1820,
+        420
+      ],
+      "id": "36f1f1fb-5f95-40a0-97c1-8589443fdf47",
+      "name": "Structured Output Parser1"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4o-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        1620,
+        440
+      ],
+      "id": "af82417d-40f2-4c88-836c-10ee69ce2c48",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "ni4ZLtUYB3SLkvdX",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Here is all file names:\n\"\"\"\n{{ $json.FileNames.join(\"\\n\\n\") }}\n\"\"\"\n\nYour task is to find best match with what user wants here is what i want: \"{{ $('GetMessageData').item.json.userMessage }}\" this file.\n\nnow return me file name without extention.",
+        "hasOutputParser": true
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.5,
+      "position": [
+        1660,
+        220
+      ],
+      "id": "446d6f07-2623-4af5-b4a8-8e458d042f45",
+      "name": "BestMatchLLM"
+    },
+    {
+      "parameters": {
+        "fieldsToAggregate": {
+          "fieldToAggregate": [
+            {
+              "fieldToAggregate": "name",
+              "renameField": true,
+              "outputFieldName": "FileNames"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        1380,
+        220
+      ],
+      "id": "9ee03ccd-1b4c-4fbb-bfbd-20bff3f19c8d",
+      "name": "GrabFileNames"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "bcawpbot",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -780,
+        300
+      ],
+      "id": "f7319e5c-3b60-487f-9bed-291428a43d27",
+      "name": "Webhook",
+      "webhookId": "8a237e1c-4d42-4ded-a6da-8b98d2a4632b"
+    },
+    {
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "={{ $json.name }}\n\nDownload Link: {{ $json.webViewLink }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        2640,
+        80
+      ],
+      "id": "3d8deca8-5c6d-43b0-8543-92b376acefa6",
+      "name": "Respond to Webhook"
+    },
+    {
+      "parameters": {
+        "inputText": "={{ $json.userMessage }}",
+        "categories": {
+          "categories": [
+            {
+              "category": "study_material",
+              "description": "If user want something about study material's pdf."
+            },
+            {
+              "category": "random",
+              "description": "If its normal talks."
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.textClassifier",
+      "typeVersion": 1,
+      "position": [
+        60,
+        200
+      ],
+      "id": "536c3d33-5e46-4aad-be5b-a7b73ffac43e",
+      "name": "Text Classifier",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "={{ $json.output }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        840,
+        680
+      ],
+      "id": "b83f13f6-15c3-4596-888b-ea359540a247",
+      "name": "Normal AI Reply"
+    },
+    {
+      "parameters": {
+        "resource": "fileFolder",
+        "searchMethod": "query",
+        "queryString": "=fullText contains '{{ $json.output.file_name }}'",
+        "limit": 20,
+        "filter": {
+          "folderId": {
+            "__rl": true,
+            "value": "root",
+            "mode": "list",
+            "cachedResultName": "/ (Root folder)",
+            "cachedResultUrl": "https://drive.google.com/drive"
+          }
+        },
+        "options": {
+          "fields": [
+            "webViewLink",
+            "name"
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        1140,
+        220
+      ],
+      "id": "5be92d98-d276-4bcb-9d75-fe01c5bf166c",
+      "name": "Search All Files",
+      "alwaysOutputData": true,
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "XSgBCzdtwpUzWNSX",
+          "name": "Google Drive lostvariables"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "fileFolder",
+        "queryString": "={{ $('BestMatchLLM').item.json.output.file_name }}",
+        "returnAll": true,
+        "filter": {
+          "folderId": {
+            "__rl": true,
+            "value": "root",
+            "mode": "list",
+            "cachedResultName": "/ (Root folder)",
+            "cachedResultUrl": "https://drive.google.com/drive"
+          }
+        },
+        "options": {
+          "fields": [
+            "webViewLink",
+            "name"
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        2080,
+        220
+      ],
+      "id": "33434bd5-e7b3-47ae-a0ae-b3b4406dc69a",
+      "name": "Search Specific File",
+      "alwaysOutputData": true,
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "XSgBCzdtwpUzWNSX",
+          "name": "Google Drive lostvariables"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "4ed26586-6c75-4aa4-8dc7-eebc02d59dcc",
+              "leftValue": "={{ $json.name }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        2320,
+        220
+      ],
+      "id": "03100095-ef6d-485e-b3f5-a141547ad2be",
+      "name": "If File Found Or Not"
+    },
+    {
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "=Sorry no files found..",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        2640,
+        320
+      ],
+      "id": "a502c512-3436-488b-ae65-3011d573efe1",
+      "name": "No File Found"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.userMessage }}",
+        "options": {
+          "systemMessage": "If user ask about you:\nYou are Whatsapp Chatbot created my @xmi1an."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.8,
+      "position": [
+        400,
+        560
+      ],
+      "id": "db3ae941-2d2b-4c11-b17f-7c0d00c6392f",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4o-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        760,
+        420
+      ],
+      "id": "190a96e7-3936-48ce-9bc2-f5b247ade920",
+      "name": "OpenAI Chat1",
+      "credentials": {
+        "openAiApi": {
+          "id": "ni4ZLtUYB3SLkvdX",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $('GetMessageData').item.json.from }}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryRedisChat",
+      "typeVersion": 1.4,
+      "position": [
+        520,
+        820
+      ],
+      "id": "7b660db4-063c-49c5-ae39-b21fe7de7f1f",
+      "name": "Redis Chat Memory",
+      "credentials": {
+        "redis": {
+          "id": "9sQGxgljpprmydqo",
+          "name": "Redis account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "{\n  \"file_name1\": \"file name1<exclude extention>\"\n}\n"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.2,
+      "position": [
+        920,
+        440
+      ],
+      "id": "0dd03af7-f62d-4ce5-b67d-23d09a539912",
+      "name": "Structured Output"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4o-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        180,
+        860
+      ],
+      "id": "c6266c32-4483-45a3-a14f-e742c500e8c1",
+      "name": "OpenAI Chat2",
+      "credentials": {
+        "openAiApi": {
+          "id": "ni4ZLtUYB3SLkvdX",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.from }}",
+                    "rightValue": "120363185397530004@g.us",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "c7e5763d-bb37-4a45-89fd-96662a9195d4"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "TODO_Group"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "d15b8a4b-8e57-4f4e-8c77-0abcc7fd49c9",
+                    "leftValue": "={{ $json.from }}",
+                    "rightValue": "120363185397530004@g.us",
+                    "operator": {
+                      "type": "string",
+                      "operation": "notEquals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "NotAllowed"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        -260,
+        300
+      ],
+      "id": "56099f5f-eb50-47b8-8c7c-7144e824d8e7",
+      "name": "Auth"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "a2fe2a67-3757-48a8-bae1-6a89495f84c5",
+              "name": "userMessage",
+              "value": "={{ $json.body.data.lastMessage.body }}",
+              "type": "string"
+            },
+            {
+              "id": "ae7acd85-1be5-4ec9-91b4-aa25572fcad4",
+              "name": "from",
+              "value": "={{ $json.body.data.lastMessage.from }}",
+              "type": "string"
+            },
+            {
+              "id": "76e1a0df-3748-4975-8b7a-c5a2b50875c3",
+              "name": "chatName",
+              "value": "={{ $json.body.data.name }}",
+              "type": "string"
+            },
+            {
+              "id": "2992d29b-c87b-42ff-be8c-387fc55011be",
+              "name": "mobileNumber",
+              "value": "={{ $json.body.data.id.user }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -500,
+        300
+      ],
+      "id": "28f4f0ba-4c32-45ef-94b5-c4873cdfc6f1",
+      "name": "GetMessageData"
+    },
+    {
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "=Sorry, I'm not allowed to talk to you...",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        -20,
+        480
+      ],
+      "id": "239a2cf1-63a2-4de7-be33-842dddbbae4d",
+      "name": "NotAllowed",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1jh-HgFUItV_Xmy3Ca26IOh1OKFOqlXDOQsjzYSPw8UY",
+          "mode": "list",
+          "cachedResultName": "WhatsappDatabase",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1jh-HgFUItV_Xmy3Ca26IOh1OKFOqlXDOQsjzYSPw8UY/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1jh-HgFUItV_Xmy3Ca26IOh1OKFOqlXDOQsjzYSPw8UY/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Chat Name": "={{ $json.chatName }}",
+            "Message": "={{ $json.userMessage }}",
+            "Mobile Number": "={{ $json.mobileNumber }}",
+            "From": "={{ $json.from }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Chat Name",
+              "displayName": "Chat Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Message",
+              "displayName": "Message",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Mobile Number",
+              "displayName": "Mobile Number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "From",
+              "displayName": "From",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {
+          "cellFormat": "RAW"
+        }
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        -240,
+        660
+      ],
+      "id": "c91e7a42-6e8e-46fd-9ea4-45d2431dc792",
+      "name": "Google Sheets",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "ZGLydXNW2PiMpspl",
+          "name": "Google Sheets 009"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2025-03-27T03:27:29.000Z",
+  "versionId": "7ff2045e-aea9-4258-aab5-388b59c6c85c"
+}
