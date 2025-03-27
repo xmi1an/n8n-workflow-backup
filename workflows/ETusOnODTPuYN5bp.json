@@ -1,0 +1,773 @@
+{
+  "active": false,
+  "connections": {
+    "Gmail Trigger": {
+      "main": [
+        [
+          {
+            "node": "Gmail",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gmail": {
+      "main": [
+        [
+          {
+            "node": "Main Agent For Make Post",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Markdown",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "URL Fetched...",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Markdown": {
+      "main": [
+        [
+          {
+            "node": "AgentisThinking",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Cleaned MarkDown",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "LinkedIn": {
+      "main": [
+        [
+          {
+            "node": "SendMSG - Post Submitted ✅",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "SendMSG - Not Admin ❌",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Content": {
+      "main": [
+        [
+          {
+            "node": "Generate Image",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "SendMSG -  Generating Image...🪄",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Image": {
+      "main": [
+        []
+      ]
+    },
+    "Generate Image": {
+      "main": [
+        [
+          {
+            "node": "LinkedIn",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Send Image",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        []
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Main Agent For Make Post",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Cleaned MarkDown": {
+      "main": [
+        [
+          {
+            "node": "Main Agent For Make Post",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "Main Agent For Make Post",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Main Agent For Make Post": {
+      "main": [
+        [
+          {
+            "node": "Send Content",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Length": {
+      "ai_tool": [
+        [
+          {
+            "node": "Main Agent For Make Post",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ContentCleanerTool": {
+      "ai_tool": [
+        [
+          {
+            "node": "Main Agent For Make Post",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ContentWriterTool": {
+      "ai_tool": [
+        [
+          {
+            "node": "Main Agent For Make Post",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AgentisThinking": {
+      "main": [
+        []
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "Main Agent For Make Post",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "URL Fetched...": {
+      "main": [
+        []
+      ]
+    },
+    "SendMSG - Post Submitted ✅": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "createdAt": "2025-03-26T07:11:58.582Z",
+  "id": "ETusOnODTPuYN5bp",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Web to LinkedIN Agent Post Latest ORG",
+  "nodes": [
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "simple": false,
+        "filters": {
+          "q": ""
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmailTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -320,
+        400
+      ],
+      "id": "a1e78a69-f2f6-4498-8be0-a5204988bffd",
+      "name": "Gmail Trigger",
+      "credentials": {},
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "messageId": "={{ $json.id }}",
+        "simple": false,
+        "options": {},
+        "path": "cc3904ef-9e57-40f4-9bd7-1254f3ad90a2"
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        -100,
+        400
+      ],
+      "id": "2cb7388f-e055-42a4-aab3-a7bb52baaf91",
+      "name": "Gmail",
+      "webhookId": "cc3904ef-9e57-40f4-9bd7-1254f3ad90a2",
+      "credentials": {},
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "url": "={{ $('Telegram Trigger').item.json.message.text }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -540,
+        0
+      ],
+      "id": "e01b8e02-d214-4932-826b-2a78a5ed136f",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "html": "={{ $json.data }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.markdown",
+      "typeVersion": 1,
+      "position": [
+        -320,
+        100
+      ],
+      "id": "63137c26-ab82-4cbe-9236-8861e1f0639a",
+      "name": "Markdown"
+    },
+    {
+      "parameters": {
+        "person": "4icK-zNIK4",
+        "text": "={{ $('Main Agent For Make Post').item.json.output.post_content }}",
+        "shareMediaCategory": "IMAGE",
+        "binaryPropertyName": "=dataimg",
+        "additionalFields": {
+          "title": "={{ $('Main Agent For Make Post').item.json.output.post_title }}",
+          "visibility": "PUBLIC"
+        }
+      },
+      "type": "n8n-nodes-base.linkedIn",
+      "typeVersion": 1,
+      "position": [
+        1280,
+        320
+      ],
+      "id": "7ec7ed6c-e00e-4142-bfb3-32864b9b5377",
+      "name": "LinkedIn",
+      "credentials": {}
+    },
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {},
+        "path": "b32cfb04-dd92-4ddc-a7e3-7b9b1ff73b9a"
+      },
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -980,
+        100
+      ],
+      "id": "15def89f-d659-42bf-831f-3ebc3a1345ee",
+      "name": "Telegram Trigger",
+      "webhookId": "b32cfb04-dd92-4ddc-a7e3-7b9b1ff73b9a",
+      "credentials": {}
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.message.chat.id }}",
+                    "rightValue": 1099084635,
+                    "operator": {
+                      "type": "number",
+                      "operation": "equals"
+                    },
+                    "id": "45bfffca-6c73-40b7-ac53-f0ba1bd6dfa7"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "isAdmin"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "ec89753e-d224-4a28-9dc9-031e39703a09",
+                    "leftValue": "={{ $json.message.chat.id }}",
+                    "rightValue": 1099084635,
+                    "operator": {
+                      "type": "number",
+                      "operation": "notEquals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "NotAdmin"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        -760,
+        100
+      ],
+      "id": "2034b21f-33eb-44ad-8366-c95fb45dfc52",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "text": "={{ $('Main Agent For Make Post').item.json.output.post_title }}",
+        "additionalFields": {
+          "appendAttribution": false
+        },
+        "path": "e6bf54f9-2454-4b83-b30d-30e0fd0b4d22"
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        840,
+        120
+      ],
+      "id": "674611fe-b4d6-48d4-96cc-0439132ade67",
+      "name": "Send Content",
+      "webhookId": "e6bf54f9-2454-4b83-b30d-30e0fd0b4d22",
+      "credentials": {}
+    },
+    {
+      "parameters": {
+        "operation": "sendPhoto",
+        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "binaryData": true,
+        "binaryPropertyName": "=dataimg",
+        "additionalFields": {
+          "reply_to_message_id": "={{ $('Telegram Trigger').item.json.message.message_id }}"
+        },
+        "path": "6d646f91-6ff0-4f45-94ed-f6c062525bd3"
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1280,
+        120
+      ],
+      "id": "c87feb68-dec1-46b4-9b52-441dcbf6d60d",
+      "name": "Send Image",
+      "webhookId": "6d646f91-6ff0-4f45-94ed-f6c062525bd3",
+      "credentials": {}
+    },
+    {
+      "parameters": {
+        "resource": "image",
+        "prompt": "=Your Task is to create linked post image based on Post title.\n\nhere is title for my linkedin post: {{ $('Main Agent For Make Post').item.json.output.post_title }}",
+        "options": {
+          "quality": "hd",
+          "size": "1024x1024",
+          "style": "vivid",
+          "returnImageUrls": false,
+          "binaryPropertyOutput": "=dataimg"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.8,
+      "position": [
+        1060,
+        220
+      ],
+      "id": "78e0ad68-e0e1-4bc4-8c8e-e548f99014c4",
+      "name": "Generate Image",
+      "retryOnFail": false,
+      "maxTries": 5,
+      "credentials": {},
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "text": "=URL Fetched..",
+        "additionalFields": {
+          "appendAttribution": false,
+          "disable_notification": true,
+          "reply_to_message_id": "={{ $('Telegram Trigger').item.json.message.message_id }}"
+        },
+        "path": "dc852f9b-755a-49bc-822b-97b2dd119a44"
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        -320,
+        -100
+      ],
+      "id": "bfaca881-e3f2-4600-ab5e-05ba202f8804",
+      "name": "URL Fetched...",
+      "webhookId": "dc852f9b-755a-49bc-822b-97b2dd119a44",
+      "credentials": {}
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "text": "=Generating Image...🪄",
+        "additionalFields": {
+          "appendAttribution": false
+        },
+        "path": "75fd82cf-44e6-48bd-a328-74fda8ada75d"
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1060,
+        20
+      ],
+      "id": "b81ac900-0d9a-40c3-a19a-5260ecc339b0",
+      "name": "SendMSG -  Generating Image...🪄",
+      "webhookId": "75fd82cf-44e6-48bd-a328-74fda8ada75d",
+      "credentials": {}
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "text": "=Post Submitted ✅ \n\nfor: <code>{{ $('Telegram Trigger').item.json.message.text }}</code>\n\nPreview: https://www.linkedin.com/in/mi1an/recent-activity/all\n\nShare: https://www.linkedin.com/feed/update/{{ $json.urn }}",
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "HTML",
+          "reply_to_message_id": "={{ $('Telegram Trigger').item.json.message.message_id }}"
+        },
+        "path": "c9cb03b6-f291-44c6-bc59-a22f0f585e09"
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1500,
+        320
+      ],
+      "id": "bb28a98e-acca-47e4-805e-02d811df86dd",
+      "name": "SendMSG - Post Submitted ✅",
+      "webhookId": "c9cb03b6-f291-44c6-bc59-a22f0f585e09",
+      "credentials": {}
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "text": "=You are not admin... ❌",
+        "additionalFields": {
+          "appendAttribution": false
+        },
+        "path": "d2a87da8-9ea5-4174-bb4d-e0836a3b3b12"
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        -540,
+        200
+      ],
+      "id": "25d04b46-e80a-4b23-8a10-36194af95928",
+      "name": "SendMSG - Not Admin ❌",
+      "webhookId": "d2a87da8-9ea5-4174-bb4d-e0836a3b3b12",
+      "credentials": {}
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4o-mini"
+        },
+        "options": {
+          "maxTokens": 800
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        20,
+        620
+      ],
+      "id": "0d79b980-4cbb-43aa-b9fc-a661edd18b70",
+      "name": "OpenAI Chat Model",
+      "credentials": {}
+    },
+    {
+      "parameters": {
+        "jsCode": "function removeLongDashes(text) {\nreturn text\n.split(/\\r?\\n/) // Split text into lines\n.filter(line => !line.match(/-{9,}/)) // Keep only lines without 9+ consecutive dashes\n.join('\\n'); // Rejoin the filtered lines\n}\n\n// Example usage:\nconst originalText = $input.first().json.data\nconst cleanedText = removeLongDashes(originalText);\n\nreturn {\n  finalData : cleanedText\n}"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -100,
+        200
+      ],
+      "id": "46087e76-0462-4f01-ac9e-227c8ea78a76",
+      "name": "Cleaned MarkDown"
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "{\n  \"post_title\": \"<post_title>\",\n  \"post_content\": \"<Summary Title> <Subtitle> 👨🏻‍💻<tool_name>: <tool_description> Link: <link_url_not_markdown_syntax>    <tool_name>: <tool_description> Link: <link_url_not_markdown_syntax>    <tool_name>: <tool_description> Link: <link_url_not_markdown_syntax>    <tool_name>: <tool_description> Link: <link_url_not_markdown_syntax>    <tool_name>: <tool_description> Link: <link_url_not_markdown_syntax>    <tool_name>: <tool_description> Link: <link_url_not_markdown_syntax>    <tool_name>: <tool_description> Link: <link_url_not_markdown_syntax>    <tool_name>: <tool_description> Link: <link_url_not_markdown_syntax>    <tool_name>: <tool_description> Link: <link_url_not_markdown_syntax>    <tool_name>: <tool_description> Link: <link_url_not_markdown_syntax>    <tool_name>: <tool_description> Link: <link_url_not_markdown_syntax>    and so on...\"\n}\n"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.2,
+      "position": [
+        960,
+        640
+      ],
+      "id": "3cd41810-20f2-49e1-8e2f-2ad0b7fc2285",
+      "name": "Structured Output"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Here is my RAW Data...\n```\n{{ $json.finalData }}\n```",
+        "hasOutputParser": true,
+        "options": {
+          "systemMessage": "=You are AI Agent that have this tools.\n\n1. LinkedInContentWriter: Call this tool to write high quality content from raw data.\n\n2. ContentCleaner : Call this tool for cleaning text content, removing any markdown syntax, and ensuring proper formatting with spaces and emojis.\n\n3. GetUserFeedback: Call this tool to ask user what to do next."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.8,
+      "position": [
+        332,
+        300
+      ],
+      "id": "2dac3c90-8372-44f8-b1a3-de926982fdb1",
+      "name": "Main Agent For Make Post",
+      "retryOnFail": false,
+      "maxTries": 2,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "name": "Check_Length_Of_Content",
+        "description": "Call this tool to check length of content for not exceed to 3000 characters.",
+        "jsCode": "if (query >= 2999) {\nreturn JSON.stringify({ remarks: \"Make Content less than 2555\" })\n}\n\nreturn JSON.stringify({ remarks : \"Content is Fine, Terminate\" })\n"
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolCode",
+      "typeVersion": 1.1,
+      "position": [
+        320,
+        660
+      ],
+      "id": "504f003c-ec0d-469f-902d-63f842aa1b73",
+      "name": "Check Length"
+    },
+    {
+      "parameters": {
+        "name": "ContentCleaner",
+        "description": "Call this tool for cleaning text content, removing any markdown syntax, and ensuring proper formatting with spaces and emojis.",
+        "workflowId": {
+          "__rl": true,
+          "value": "taLgks7eAY6sTrWh",
+          "mode": "list",
+          "cachedResultName": "ContentCleaner"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2,
+      "position": [
+        600,
+        660
+      ],
+      "id": "81cfdc94-e778-4906-9623-f2ad59438ee7",
+      "name": "ContentCleanerTool"
+    },
+    {
+      "parameters": {
+        "name": "LinkedInContentWriter",
+        "description": "Call this tool to write high quality content.",
+        "workflowId": {
+          "__rl": true,
+          "value": "yUG1UUIqhDGnBT6d",
+          "mode": "list",
+          "cachedResultName": "Content Writer"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2,
+      "position": [
+        780,
+        660
+      ],
+      "id": "5b3a1a81-f77c-4eca-861f-1db9395a35b5",
+      "name": "ContentWriterTool"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "text": "=Agent is Thinking 🤔...",
+        "additionalFields": {
+          "appendAttribution": false
+        },
+        "path": "cca6dcdd-4260-4c53-977f-3560eea84e75"
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        -100,
+        0
+      ],
+      "id": "011e93b4-839c-42b9-9146-5631ac1a4314",
+      "name": "AgentisThinking",
+      "webhookId": "cca6dcdd-4260-4c53-977f-3560eea84e75",
+      "credentials": {}
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "contextWindowLength": 15
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        180,
+        640
+      ],
+      "id": "c56b1506-3865-4874-822a-4c19952c53ff",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-twitter-uploader.twitterMediaUpload",
+      "typeVersion": 1,
+      "position": [
+        1380,
+        -200
+      ],
+      "id": "d3063175-30b3-4012-a8dd-4eb79ad4d314",
+      "name": "Twitter Media Upload",
+      "credentials": {}
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2025-03-26T07:11:58.582Z",
+  "versionId": "ed89034a-2399-45aa-b54b-2520689798b6"
+}
