@@ -1,0 +1,481 @@
+{
+  "active": false,
+  "connections": {
+    "X": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge1": {
+      "main": [
+        [
+          {
+            "node": "Form",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Aggregate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Aggregate": {
+      "main": [
+        [
+          {
+            "node": "Upload Image",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Data": {
+      "main": [
+        [
+          {
+            "node": "Data for AI",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Data for AI": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Upload Image": {
+      "main": [
+        [
+          {
+            "node": "Nest Top Meta",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Nest Top Meta": {
+      "main": [
+        [
+          {
+            "node": "Rename Image Binary Top Image",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Form Input": {
+      "main": [
+        [
+          {
+            "node": "Split Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "Split Form Input",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Rename Image Binary Top Image": {
+      "main": [
+        [
+          {
+            "node": "X",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-03-21T13:47:30.003Z",
+  "id": "XCa5IrcRIjZQ6Xoi",
+  "meta": {
+    "templateId": "2950",
+    "templateCredsSetupCompleted": true
+  },
+  "name": "AI-Powered Social Media Content Generator & Publisher",
+  "nodes": [
+    {
+      "parameters": {
+        "authentication": "basicAuth",
+        "formTitle": "📱🤖 Syncbricks -  Social Media Content AI Agent",
+        "formDescription": "=This is syncbricks AI-driven assistant designed to simplify and accelerate your social media content creation process. This intelligent agent generates engaging and platform-optimized post descriptions based on your inputs, such as a brief topic or title and an uploaded image. Whether you're a marketer, business owner, or influencer, the AI streamlines content creation, saving time and ensuring professional-quality posts tailored to your audience.",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Post Title/Topic",
+              "placeholder": "Write a brief and clear title or main topic for the post (e.g., \"New Product Launch,\" \"Exciting Company Update\"). This will help the AI understand the core subject of your post.",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Optional (Keywords or Hashtags)",
+              "placeholder": "Add any specific keywords or hashtags you want the AI to include in the post. This will ensure the generated content aligns with your branding or campaign needs."
+            },
+            {
+              "fieldLabel": "Optional Link",
+              "placeholder": "http:// link of any product, service, formt, support etc"
+            }
+          ]
+        },
+        "responseMode": "lastNode",
+        "options": {
+          "buttonLabel": "Continue to Image Upload"
+        }
+      },
+      "id": "8034d082-f50e-4f6b-8a79-ce7f86012d72",
+      "name": "On form submission",
+      "type": "n8n-nodes-base.formTrigger",
+      "position": [
+        520,
+        380
+      ],
+      "webhookId": "syncbricks-social-posting-ai-agent",
+      "typeVersion": 2.2,
+      "credentials": {
+        "httpBasicAuth": {
+          "id": "tsyWvQxoyMBtXIQm",
+          "name": "xmi1an"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are a content creation AI for Syncbricks, a leading IT-focused platform that delivers insightful articles, tech news, and industry trends in Enterprise IT, Open Source, Software, Hardware, Cloud Computing, Cybersecurity, and Emerging Technologies.\n\nYour goal is to craft engaging and informative content for Twitter (X), ensuring that each post aligns with the platform's audience, tone, and style. The content should reflect Syncbricks’ expertise in IT, providing value-driven insights, tutorials, reviews, and discussions that resonate with tech professionals, enthusiasts, and businesses.\n\nEach post should be optimized for engagement, using platform-specific hashtags to enhance reach and SEO. Maintain a professional yet approachable tone that fosters trust and authority in the tech space.\n\nGeneral Tech Hashtags: <5 related hashtags>\n\nBest Practices for Content Creation:\nPost Optimization: Adjust content format, style, and hashtags to suit each social media platform’s algorithm and audience engagement patterns.\nSEO & Hashtags: Use a balanced mix of general tech hashtags and platform-specific trending hashtags to maximize reach.\nEngagement-Driven Content: Focus on tech tutorials, IT industry updates, comparisons, reviews, and insightful discussions that spark engagement.\nConsistency: Maintain a consistent tone and visual identity across all platforms while tailoring content for each audience type.\nData-Backed Trends: Regularly analyze post-performance and adapt hashtag strategy to reflect trending discussions in Enterprise IT and Tech Innovation.\n🚀 Syncbricks' content should establish itself as a thought leader in the IT space by providing high-quality, relevant, and engaging posts that attract professionals, businesses, and tech enthusiasts.\n\n### Platform-Specific Requirements:\n1. **Twitter (X)**:\n   - Style: Concise and impactful.\n   - Tone: Crisp, engaging, and attention-grabbing.\n   - Content Length: 150 characters or less, including hashtags.\n  - Hashtags : <5 related hashtags>\n   - Call to Action: Focus on quick engagement through retweets, likes, and replies.\n\n\nWith this guidance, generate posts for all platforms for below given inputs;\n\n#### Event Highlight:\n- Topic / about the post:{{ $json['Post Title/Topic'] }}\n- some keywords: {{ $json.formMode }}\n- Visit Link :  : {{ $('On form submission').item.json['Optional Link'] }}",
+        "hasOutputParser": true,
+        "options": {}
+      },
+      "id": "e38a74d5-a733-4f5c-a97b-2c761b46919b",
+      "name": "AI Agent",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "position": [
+        1460,
+        361
+      ],
+      "typeVersion": 1.7
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-2.0-flash-exp",
+        "options": {}
+      },
+      "id": "ca0a8aef-0251-45ed-bc9b-05ee977febf9",
+      "name": "Google Gemini Chat Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "position": [
+        1340,
+        700
+      ],
+      "typeVersion": 1,
+      "credentials": {
+        "googlePalmApi": {
+          "id": "802Si0KYAIr7WqeD",
+          "name": "Google Gemini dhqn8 1"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "schemaType": "manual",
+        "inputSchema": "{\n\t\"type\": \"object\",\n\t\"properties\": {\n\t\t\"event_name\": {\n\t\t\t\"type\": \"string\"\n\t\t},\n\t\t\"event_description\": {\n\t\t\t\"type\": \"string\"\n\t\t},\n\t\t\"platform_posts\": {\n\t\t\t\"type\": \"object\",\n\t\t\t\"properties\": {\n\t\t\t\t\"LinkedIn\": {\n\t\t\t\t\t\"type\": \"object\",\n\t\t\t\t\t\"properties\": {\n\t\t\t\t\t\t\"post\": {\n\t\t\t\t\t\t\t\"type\": \"string\"\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"hashtags\": {\n\t\t\t\t\t\t\t\"type\": \"array\",\n\t\t\t\t\t\t\t\"items\": {\n\t\t\t\t\t\t\t\t\"type\": \"string\"\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"call_to_action\": {\n\t\t\t\t\t\t\t\"type\": \"string\"\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t},\n\t\t\t\t\"Instagram\": {\n\t\t\t\t\t\"type\": \"object\",\n\t\t\t\t\t\"properties\": {\n\t\t\t\t\t\t\"image_suggestion\": {\n\t\t\t\t\t\t\t\"type\": \"string\"\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"caption\": {\n\t\t\t\t\t\t\t\"type\": \"string\"\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"hashtags\": {\n\t\t\t\t\t\t\t\"type\": \"array\",\n\t\t\t\t\t\t\t\"items\": {\n\t\t\t\t\t\t\t\t\"type\": \"string\"\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"emojis\": {\n\t\t\t\t\t\t\t\"type\": \"array\",\n\t\t\t\t\t\t\t\"items\": {\n\t\t\t\t\t\t\t\t\"type\": \"string\"\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"call_to_action\": {\n\t\t\t\t\t\t\t\"type\": \"string\"\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t},\n\t\t\t\t\"Facebook\": {\n\t\t\t\t\t\"type\": \"object\",\n\t\t\t\t\t\"properties\": {\n\t\t\t\t\t\t\"post\": {\n\t\t\t\t\t\t\t\"type\": \"string\"\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"hashtags\": {\n\t\t\t\t\t\t\t\"type\": \"array\",\n\t\t\t\t\t\t\t\"items\": {\n\t\t\t\t\t\t\t\t\"type\": \"string\"\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"call_to_action\": {\n\t\t\t\t\t\t\t\"type\": \"string\"\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"image_suggestion\": {\n\t\t\t\t\t\t\t\"type\": \"string\"\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t},\n\t\t\t\t\"Twitter\": {\n\t\t\t\t\t\"type\": \"object\",\n\t\t\t\t\t\"properties\": {\n\t\t\t\t\t\t\"post\": {\n\t\t\t\t\t\t\t\"type\": \"string\"\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"hashtags\": {\n\t\t\t\t\t\t\t\"type\": \"array\",\n\t\t\t\t\t\t\t\"items\": {\n\t\t\t\t\t\t\t\t\"type\": \"string\"\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"character_limit\": {\n\t\t\t\t\t\t\t\"type\": \"integer\"\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t},\n\t\t\"additional_notes\": {\n\t\t\t\"type\": \"string\"\n\t\t}\n\t}\n}\n"
+      },
+      "id": "31e88059-94ca-4d4e-a673-e0f8cd1ac96e",
+      "name": "Structured Output Parser",
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "position": [
+        1700,
+        720
+      ],
+      "typeVersion": 1.2
+    },
+    {
+      "parameters": {
+        "include": "selected",
+        "includeFields": "output.platform_posts.LinkedIn.post",
+        "options": {}
+      },
+      "id": "ffda1c79-faa4-4cc8-8655-6f7fc14b7e2d",
+      "name": "Split Form Input",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        800,
+        361
+      ],
+      "typeVersion": 3.2
+    },
+    {
+      "parameters": {
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "image",
+              "fieldType": "file",
+              "acceptFileTypes": ".jpg",
+              "requiredField": "={{ true }}"
+            }
+          ]
+        },
+        "options": {
+          "formTitle": "Review the Text",
+          "formDescription": "=Please review the text, I will be Publishing this on Social Media, note that to generate the text I am using tokents.\nNote below Text : \n\nTwitter : \n{{ $json.data[0].output.platform_posts.Twitter.post }}",
+          "buttonLabel": "Proceed to Next Step"
+        }
+      },
+      "id": "37e443e1-6925-44a1-a07e-9eb1120e55a9",
+      "name": "Upload Image",
+      "type": "n8n-nodes-base.form",
+      "position": [
+        2056,
+        361
+      ],
+      "webhookId": "0dc811ef-b2e0-4213-a0c9-e9b5fb9fcbf1",
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "include": "selected",
+        "includeFields": "output.platform_posts.LinkedIn.post",
+        "options": {}
+      },
+      "id": "265068ce-22fc-4c41-9ed2-93eadc0ce25f",
+      "name": "Split Data",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        1020,
+        361
+      ],
+      "typeVersion": 3.2
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "5d35062b-5f6d-44ba-bc52-54b0e841c31a",
+              "name": "Post Title/Topic",
+              "type": "string",
+              "value": "={{ $('On form submission').item.json['Post Title/Topic'] }}"
+            },
+            {
+              "id": "400ed7a9-d839-4fe7-b8a0-deb7d89e264a",
+              "name": "formMode",
+              "type": "string",
+              "value": "={{ $('On form submission').item.json.formMode }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "b8470879-413e-4901-bf39-23a19beaee5f",
+      "name": "Data for AI",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        1240,
+        360
+      ],
+      "typeVersion": 3.4
+    },
+    {
+      "parameters": {
+        "aggregate": "aggregateAllItemData",
+        "options": {}
+      },
+      "id": "eef02dcb-7c7f-4d6c-a1fd-039c8b30f10d",
+      "name": "Aggregate",
+      "type": "n8n-nodes-base.aggregate",
+      "position": [
+        1836,
+        361
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "operation": "completion",
+        "completionTitle": "Thanks",
+        "completionMessage": "=Your post has successfully been submitted.\n\nHere is Link : \nhttps://x.com/xmi2an/status/{{ $('Edit Fields').item.json.edit_history_tweet_ids[0] }}\n\nThanks ",
+        "options": {
+          "formTitle": "AI Agent (Job Done)"
+        }
+      },
+      "id": "097e7724-4dc0-4cc9-b12c-2dbdae4e024f",
+      "name": "Form",
+      "type": "n8n-nodes-base.form",
+      "position": [
+        3376,
+        361
+      ],
+      "webhookId": "e84b9492-038c-4701-a367-c68237ddebf6",
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "2fb3fd91-c13d-45ce-a7ec-612319a008fc",
+              "name": "metaTop",
+              "type": "object",
+              "value": "={{ $json }}"
+            }
+          ]
+        },
+        "options": {
+          "includeBinary": true
+        }
+      },
+      "id": "7b1d64fc-02ad-4b8f-ad1e-be8894abd932",
+      "name": "Nest Top Meta",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        2276,
+        361
+      ],
+      "typeVersion": 3.3
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "$input.item.binary.top = $input.item.binary.data;\ndelete $input.item.binary.data;\nreturn $input.item;"
+      },
+      "id": "11ddcfe8-1978-4f5a-8c29-67e72920431a",
+      "name": "Rename Image Binary Top Image",
+      "type": "n8n-nodes-base.code",
+      "position": [
+        2496,
+        361
+      ],
+      "typeVersion": 2
+    },
+    {
+      "parameters": {
+        "text": "={{ $('Aggregate').item.json.data[0].output.platform_posts.Twitter.post }}\n",
+        "additionalFields": {}
+      },
+      "id": "c4a2e59d-165a-49cc-8074-9868ee4e0d6c",
+      "name": "X",
+      "type": "n8n-nodes-base.twitter",
+      "position": [
+        2716,
+        361
+      ],
+      "typeVersion": 2,
+      "credentials": {
+        "twitterOAuth2Api": {
+          "id": "D7gcPZu8OQ6VLRFr",
+          "name": "X xmi2an"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "3dfdc22a-5f69-4d5e-9fc0-f637695c46f9",
+              "name": "edit_history_tweet_ids",
+              "type": "array",
+              "value": "={{ $json.edit_history_tweet_ids }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "93632f4f-9182-4b76-bbe0-e6d5dd230452",
+      "name": "Edit Fields",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        2936,
+        361
+      ],
+      "typeVersion": 3.4
+    },
+    {
+      "parameters": {},
+      "id": "1c8f6ba6-c28b-45a8-ba0d-3f2f21ccbfa0",
+      "name": "Merge1",
+      "type": "n8n-nodes-base.merge",
+      "position": [
+        3120,
+        600
+      ],
+      "typeVersion": 3
+    }
+  ],
+  "pinData": {},
+  "settings": {},
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-03-21T14:29:55.000Z",
+  "versionId": "abd0fc2b-5fa3-427f-87ed-9a16f6049f56"
+}
