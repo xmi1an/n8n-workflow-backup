@@ -1,0 +1,70 @@
+{
+  "active": false,
+  "connections": {
+    "When Executed by Another Workflow": {
+      "main": [
+        [
+          {
+            "node": "LinkedIn",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-03-22T18:06:50.439Z",
+  "id": "p1a73l5XZHB9Lj1r",
+  "meta": null,
+  "name": "Post to LinkedIN Tool",
+  "nodes": [
+    {
+      "parameters": {
+        "inputSource": "passthrough"
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -380,
+        -80
+      ],
+      "id": "217f1c9e-6253-4fdc-b262-81f3420aed23",
+      "name": "When Executed by Another Workflow"
+    },
+    {
+      "parameters": {
+        "person": "4icK-zNIK4",
+        "text": "={{ $('Main Agent For Make Post').item.json.output.post_content }}",
+        "shareMediaCategory": "IMAGE",
+        "binaryPropertyName": "=dataimg",
+        "additionalFields": {
+          "title": "={{ $('Main Agent For Make Post').item.json.output.post_title }}",
+          "visibility": "PUBLIC"
+        }
+      },
+      "type": "n8n-nodes-base.linkedIn",
+      "typeVersion": 1,
+      "position": [
+        -80,
+        -80
+      ],
+      "id": "c3b0a470-41b6-4071-b4d3-871ffe0d2333",
+      "name": "LinkedIn",
+      "credentials": {
+        "linkedInOAuth2Api": {
+          "id": "ZcSoSR3yKrHF6gLu",
+          "name": "LinkedIn account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-03-22T18:07:24.000Z",
+  "versionId": "d512b027-8215-43c2-8712-102dad69ee63"
+}
