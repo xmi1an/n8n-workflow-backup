@@ -1,0 +1,778 @@
+{
+  "active": false,
+  "connections": {
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "CreatePage",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Filtered",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "UserFound",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "UserNotFound",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Notion": {
+      "main": [
+        [
+          {
+            "node": "All Done",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filtered": {
+      "main": [
+        [
+          {
+            "node": "FinalData",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Access denied",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CreatePage": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "FinalData": {
+      "main": [
+        [
+          {
+            "node": "Notion",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Random Artist": {
+      "main": [
+        [
+          {
+            "node": "Get Artist Name",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Artist Posts": {
+      "main": [
+        [
+          {
+            "node": "Filtered Images only",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Artist Name": {
+      "main": [
+        [
+          {
+            "node": "CreatePageRandom",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CreatePageRandom": {
+      "main": [
+        [
+          {
+            "node": "Get Artist Posts",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filtered Images only": {
+      "main": [
+        [
+          {
+            "node": "FinalDataRandom",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "FinalDataRandom": {
+      "main": [
+        [
+          {
+            "node": "Notion1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Get Random Artist",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-03-23T15:20:24.792Z",
+  "id": "p9aPEJIYPARPuMVT",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "KumarTGBot",
+  "nodes": [
+    {
+      "parameters": {
+        "url": "=https://coomer.su/api/v1/onlyfans/user/{{ $('Telegram Trigger').item.json.message.text }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -420,
+        -220
+      ],
+      "id": "ce444499-a4b3-42c8-880e-4748f692077b",
+      "name": "HTTP Request",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -1080,
+        -120
+      ],
+      "id": "214985bb-f8a0-4a2b-8ad8-9cf17cfa92d3",
+      "name": "Telegram Trigger",
+      "webhookId": "be645a7f-afec-447d-afde-ea1f1f29aaa2",
+      "credentials": {
+        "telegramApi": {
+          "id": "oeVtkIaggk9YqJFc",
+          "name": "KoomarBot"
+        }
+      },
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "dc751a6b-b3a7-4b0d-b715-0f58cf0871a5",
+              "leftValue": "={{ $json.user }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -200,
+        -220
+      ],
+      "id": "6713799a-32f0-4778-a7b3-f95154d5daa9",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "resource": "block",
+        "blockId": {
+          "__rl": true,
+          "value": "={{ $('CreatePage').item.json.id }}",
+          "mode": "id"
+        },
+        "blockUi": {
+          "blockValues": [
+            {
+              "type": "image",
+              "url": "={{ $json.imageurl }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.notion",
+      "typeVersion": 2.2,
+      "position": [
+        460,
+        -220
+      ],
+      "id": "2e3b89ec-b165-4913-998a-9185cd9c7133",
+      "name": "Notion",
+      "credentials": {
+        "notionApi": {
+          "id": "fYC9rqVTLidFdTiJ",
+          "name": "Notion account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "3feae864-d629-4900-a32a-18d870068717",
+              "leftValue": "={{ $('If').item.json.file.path }}",
+              "rightValue": ".jpg",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        20,
+        -220
+      ],
+      "id": "d6c9372e-f0b6-4173-b257-4fdb1141547e",
+      "name": "Filtered",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $('Telegram Trigger').item.json.message.from.id }}",
+                    "rightValue": 1099084635,
+                    "operator": {
+                      "type": "number",
+                      "operation": "equals"
+                    },
+                    "id": "4c95daeb-071d-4fcc-877e-de4243188458"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "isAdmin"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "ab5b4c12-a0a2-4218-9b0e-498457d1f297",
+                    "leftValue": "={{ $('Telegram Trigger').item.json.message.from.id }}",
+                    "rightValue": 1099084635,
+                    "operator": {
+                      "type": "number",
+                      "operation": "notEquals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "notAdmin"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        -640,
+        -120
+      ],
+      "id": "243ceb6a-5158-457b-9a6f-b394a65a5b66",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "text": "=Access Denied..",
+        "additionalFields": {
+          "appendAttribution": false,
+          "disable_notification": true,
+          "reply_to_message_id": "={{ $('Telegram Trigger').item.json.message.message_id }}"
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        -420,
+        -20
+      ],
+      "id": "95954d96-4761-402d-a19d-e0a1ffb3001b",
+      "name": "Access denied",
+      "webhookId": "3e429396-b670-4f98-b082-ef88f18cd3d1",
+      "executeOnce": true,
+      "credentials": {
+        "telegramApi": {
+          "id": "oeVtkIaggk9YqJFc",
+          "name": "KoomarBot"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "text": "=Uploaded..",
+        "additionalFields": {
+          "appendAttribution": false,
+          "disable_notification": true,
+          "reply_to_message_id": "={{ $('Telegram Trigger').item.json.message.message_id }}"
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        680,
+        -220
+      ],
+      "id": "aed44d75-1f26-41df-8620-77c2831342a2",
+      "name": "All Done",
+      "webhookId": "3e429396-b670-4f98-b082-ef88f18cd3d1",
+      "executeOnce": true,
+      "credentials": {
+        "telegramApi": {
+          "id": "oeVtkIaggk9YqJFc",
+          "name": "KoomarBot"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "pageId": {
+          "__rl": true,
+          "value": "https://www.notion.so/Images-1bf7ad85590d808098e0ea3c46f7c25c",
+          "mode": "url"
+        },
+        "title": "={{ $('Telegram Trigger').item.json.message.text }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.notion",
+      "typeVersion": 2.2,
+      "position": [
+        -860,
+        -120
+      ],
+      "id": "b7dbdc0e-c569-486b-872e-5d1f053a4d84",
+      "name": "CreatePage",
+      "executeOnce": true,
+      "alwaysOutputData": true,
+      "credentials": {
+        "notionApi": {
+          "id": "fYC9rqVTLidFdTiJ",
+          "name": "Notion account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "c994d18b-224e-4c6e-979d-c9b09612056f",
+              "name": "imageurl",
+              "value": "=https://n2.coomer.su/data{{ $json.file.path }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        240,
+        -220
+      ],
+      "id": "78bbe819-bbcd-4caf-a68a-1b86fdf96443",
+      "name": "FinalData"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "text": "=Username not found..",
+        "additionalFields": {
+          "appendAttribution": false,
+          "disable_notification": true,
+          "reply_to_message_id": "={{ $('Telegram Trigger').item.json.message.message_id }}"
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        20,
+        -20
+      ],
+      "id": "accb0967-c113-4e44-b5dd-eef66e0c9bf5",
+      "name": "UserNotFound",
+      "webhookId": "3e429396-b670-4f98-b082-ef88f18cd3d1",
+      "credentials": {
+        "telegramApi": {
+          "id": "oeVtkIaggk9YqJFc",
+          "name": "KoomarBot"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "text": "=Username found ✅..",
+        "additionalFields": {
+          "appendAttribution": false,
+          "disable_notification": true,
+          "reply_to_message_id": "={{ $('Telegram Trigger').item.json.message.message_id }}"
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        20,
+        -420
+      ],
+      "id": "57834ab9-241b-4789-9d23-f7cf48da9908",
+      "name": "UserFound",
+      "webhookId": "3e429396-b670-4f98-b082-ef88f18cd3d1",
+      "executeOnce": true,
+      "credentials": {
+        "telegramApi": {
+          "id": "oeVtkIaggk9YqJFc",
+          "name": "KoomarBot"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "https://kemono.su/api/v1/artists/random",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "application/json"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -880,
+        -1140
+      ],
+      "id": "fe19fbde-28eb-422f-ae58-5df76a5168ff",
+      "name": "Get Random Artist"
+    },
+    {
+      "parameters": {
+        "url": "=https://kemono.su/api/v1/{{ $('Get Random Artist').item.json.service }}/user/{{ $('Get Random Artist').item.json.artist_id }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -220,
+        -1140
+      ],
+      "id": "e4550664-659a-4f2a-975d-0a1b282b4792",
+      "name": "Get Artist Posts",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "url": "=https://kemono.su/api/v1/{{ $json.service }}/user/{{ $json.artist_id }}/profile",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -660,
+        -1140
+      ],
+      "id": "6f586147-4d6a-4f3f-ac5b-9ed060b7e1f5",
+      "name": "Get Artist Name",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "pageId": {
+          "__rl": true,
+          "value": "https://www.notion.so/Images-1bf7ad85590d808098e0ea3c46f7c25c",
+          "mode": "url"
+        },
+        "title": "={{ $json.name }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.notion",
+      "typeVersion": 2.2,
+      "position": [
+        -440,
+        -1140
+      ],
+      "id": "7bea51c6-8d22-4d1e-a22a-b454c33e53a7",
+      "name": "CreatePageRandom",
+      "executeOnce": true,
+      "alwaysOutputData": true,
+      "credentials": {
+        "notionApi": {
+          "id": "fYC9rqVTLidFdTiJ",
+          "name": "Notion account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "block",
+        "blockId": {
+          "__rl": true,
+          "value": "={{ $('CreatePageRandom').item.json.id }}",
+          "mode": "id"
+        },
+        "blockUi": {
+          "blockValues": [
+            {
+              "type": "image",
+              "url": "={{ $json.imageurl }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.notion",
+      "typeVersion": 2.2,
+      "position": [
+        540,
+        -1320
+      ],
+      "id": "35f920cf-7584-45b5-be78-d9d0c07a69fd",
+      "name": "Notion1",
+      "credentials": {
+        "notionApi": {
+          "id": "fYC9rqVTLidFdTiJ",
+          "name": "Notion account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "3feae864-d629-4900-a32a-18d870068717",
+              "leftValue": "={{ $json.file.path }}",
+              "rightValue": ".jpg",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            },
+            {
+              "id": "ee37dd84-34d7-47d5-8e2a-d39791efcc55",
+              "leftValue": "={{ $json.file.path }}",
+              "rightValue": ".png",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            },
+            {
+              "id": "76770603-586e-4bd5-87a7-f28489987838",
+              "leftValue": "={{ $json.file.path }}",
+              "rightValue": ".webp",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        0,
+        -1140
+      ],
+      "id": "f87a6641-f28f-4562-a2f7-d9bf3a01392b",
+      "name": "Filtered Images only",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "c994d18b-224e-4c6e-979d-c9b09612056f",
+              "name": "imageurl",
+              "value": "=https://n4.coomer.su/data{{ $json.file.path }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        220,
+        -1140
+      ],
+      "id": "c8fe1f83-0f41-44a1-8a88-9f583a025cef",
+      "name": "FinalDataRandom"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "minutes",
+              "minutesInterval": 1
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -1100,
+        -1260
+      ],
+      "id": "50039124-3181-4631-80ed-163249a256c9",
+      "name": "Schedule Trigger"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": {
+    "node:Schedule Trigger": {
+      "recurrenceRules": []
+    }
+  },
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2025-03-24T14:06:31.000Z",
+  "versionId": "a21b8916-29c0-4993-95da-ca202eefec20"
+}
