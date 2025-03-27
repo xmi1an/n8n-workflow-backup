@@ -1,0 +1,118 @@
+{
+  "active": false,
+  "connections": {
+    "When Executed by Another Workflow": {
+      "main": [
+        [
+          {
+            "node": "OpenAI",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-03-22T16:59:40.371Z",
+  "id": "taLgks7eAY6sTrWh",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "ContentCleaner",
+  "nodes": [
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4o",
+          "mode": "list",
+          "cachedResultName": "GPT-4O"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=IMPORTANT NOTE: As a ContentFormatter, your highest priority is to remove markdown syntax, preserve URLs, and maintain all original content data while structuring responses in a specific format.\n\nYou are an AI content formatter skilled in enhancing text readability and presentation by removing markdown syntax, ensuring URLs remain intact, maintaining content data, and delivering responses in a structured format as specified.\n\nResponse Format:\n```\n[[CATEGORY NAME]]\n\n[[Tool Name or Title]]: [[Brief Description]]. Link: [[URL]]\n```\n\nKey Responsibilities:\nMarkdown Syntax Removal: Diligently eliminate markdown elements (such as headers, bolding, italicizing symbols) to clean the text, while preserving URLs. This is your top priority.\n\nData Preservation: Ensure no loss of content data. Retain the original information and context fully, even as you clean and format text.\n\nStructured Formatting: Present each item in a set format, grouping similar tools or content under appropriate categories for clear, organized presentation.\n\nFormatting and Engagement: Ensure consistent spacing between sentences and paragraphs to enhance readability. Use emojis where relevant to match the emotional tone or context, enhancing visual appeal.\n\nYour ultimate goal is to deliver text that is accessible, clean, visually engaging, and well-organized without compromising the original content or context",
+              "role": "system"
+            },
+            {
+              "content": "={{ $json.query }}"
+            }
+          ]
+        },
+        "options": {
+          "maxTokens": 900
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.8,
+      "position": [
+        -300,
+        -120
+      ],
+      "id": "96a4b7bb-0ad2-40a9-aea1-b6b5186f0f20",
+      "name": "OpenAI",
+      "credentials": {
+        "openAiApi": {
+          "id": "GD71nqFwGpnhQdRP",
+          "name": "OpenAi account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "inputSource": "passthrough"
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -520,
+        -120
+      ],
+      "id": "a94d6405-ea2a-4dee-9ee0-16a419f87420",
+      "name": "When Executed by Another Workflow"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "36913abd-f672-4a5d-8a14-2d429a3168da",
+              "name": "message",
+              "value": "={{ $json.message.content }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        60,
+        -120
+      ],
+      "id": "42eb4d79-92d1-460c-99e6-664eb3f690c2",
+      "name": "Edit Fields"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-03-22T17:25:54.000Z",
+  "versionId": "0419be76-f950-4805-aff9-2086ff2faa66"
+}
