@@ -1,0 +1,142 @@
+{
+  "active": false,
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Get User Query",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get User Query": {
+      "main": [
+        [
+          {
+            "node": "OpenAI",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-03-24T14:11:51.230Z",
+  "id": "Qf7cQlZw31uJJRnq",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "WP AI Bot",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "8a237e1c-4d42-4ded-a6da-8b98d2a4632b",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -400,
+        -40
+      ],
+      "id": "40e09c17-3905-41e1-b844-f5bb2770eb98",
+      "name": "Webhook",
+      "webhookId": "8a237e1c-4d42-4ded-a6da-8b98d2a4632b"
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "GPT-4O-MINI"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "={{ $json.query }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.8,
+      "position": [
+        100,
+        -40
+      ],
+      "id": "7e834f93-e104-47d5-9916-2d7f812ede50",
+      "name": "OpenAI",
+      "credentials": {
+        "openAiApi": {
+          "id": "GD71nqFwGpnhQdRP",
+          "name": "OpenAi account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "={{ $json.message.content }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        640,
+        -40
+      ],
+      "id": "127c85f2-4ef6-4838-86fc-e139705d5d7a",
+      "name": "Respond to Webhook"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "a2fe2a67-3757-48a8-bae1-6a89495f84c5",
+              "name": "query",
+              "value": "={{ $json.body.query }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -160,
+        -40
+      ],
+      "id": "9709bc9b-0794-464e-92b0-eccebf1eb3c8",
+      "name": "Get User Query"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-03-26T05:10:42.000Z",
+  "versionId": "c1eda5ea-7364-49f8-af34-f78831c23e88"
+}
