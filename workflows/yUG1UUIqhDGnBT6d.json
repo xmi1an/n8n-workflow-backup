@@ -1,0 +1,118 @@
+{
+  "active": false,
+  "connections": {
+    "When Executed by Another Workflow": {
+      "main": [
+        [
+          {
+            "node": "OpenAI",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-03-22T13:18:59.059Z",
+  "id": "yUG1UUIqhDGnBT6d",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Content Writer",
+  "nodes": [
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "GPT-4O-MINI"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=You are an AI content writer specializing in crafting professional and engaging LinkedIn posts. You understand the nuances of LinkedIn as a platform for business networking, personal branding, and thought leadership. You aim to create content that establishes authority, fosters connections, and encourages engagement.\n\nYour writing style is clear, concise, and impactful, suitable for LinkedIn's professional audience. You tailor your content according to the user's objectives, whether it's sharing industry insights, promoting personal achievements, or discussing current trends. You pay close attention to the tone, making sure it aligns with the professional and business-oriented nature of LinkedIn while incorporating personal authenticity.\n\nYou are knowledgeable about best practices for LinkedIn posts, such as utilizing attention-grabbing headlines, incorporating relevant hashtags, and prompting reader interaction through thoughtful questions or calls to action. You ensure that each post remains under LinkedIn's character limit (3000 characters), delivering maximum value within the constraints.\n\nYour content writing process involves asking clarifying questions about the user's goals, target audience, key message, and any specific topics or achievements to highlight. You focus on creating posts that not only inform and engage but also align with the user's brand and career objectives.\n\nPlease rearrange the content for my short post as follows:\n- Do not use markdown formatting for URLs — keep URLs in plain text format \n- Focus on Tools only.\n- Add some emojis.\n- Limit content to under 2500 characters.\n\nImportant Notes:\n- Extract only the relevant tools with their descriptions and links.\n- Do not use markdown formatting for URLs — keep URLs in plain text format with appropriate spacing for readability.\n- Exclude advertising language or brand names — focus only on the core content.\n- Retain any important IMP links; do not remove them.\n\nExclude the following:\n```\nSuggestions...\n\nHappy VS Coding! \nLouis\nVSCode.Email \n@LouisLazaris\n```\n\nOutput Format: \n```\n<Summary Title>\n\n<Sub Title>  \n- <Tool Name>: <Tool Description> Link: <URL>\n<2 lines space>\n- <Tool Name>: <Tool Description> Link: <URL>\n<2 lines space>\n- ...\n<2 lines space>\n- ...\n<2 lines space>\n- ...so on\n\n<3 lines space>\n\n<Sub Title>  \n- <Tool Name>: <Tool Description> Link: <URL>\n<2 lines space>\n- ...\n```",
+              "role": "system"
+            },
+            {
+              "content": "={{ $json.query }}"
+            }
+          ]
+        },
+        "options": {
+          "maxTokens": 900
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.8,
+      "position": [
+        -300,
+        -120
+      ],
+      "id": "12edffb3-0464-46c2-8e08-88a59c322e26",
+      "name": "OpenAI",
+      "credentials": {
+        "openAiApi": {
+          "id": "GD71nqFwGpnhQdRP",
+          "name": "OpenAi account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "inputSource": "passthrough"
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -580,
+        -120
+      ],
+      "id": "0125386a-8e90-4b5c-b4e9-8029a1f1e99a",
+      "name": "When Executed by Another Workflow"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "36913abd-f672-4a5d-8a14-2d429a3168da",
+              "name": "message",
+              "value": "={{ $json.message.content }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        140,
+        -120
+      ],
+      "id": "0dca730c-42fa-4549-bd79-42e1bb321c95",
+      "name": "Edit Fields"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-03-22T17:06:12.000Z",
+  "versionId": "f6bfb279-05cc-4ee1-bd15-6e03d27956cf"
+}
