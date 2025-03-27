@@ -1,0 +1,164 @@
+{
+  "active": true,
+  "connections": {
+    "Gmail": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code": {
+      "main": [
+        [
+          {
+            "node": "Telegram",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gmail Trigger 009": {
+      "main": [
+        [
+          {
+            "node": "Gmail",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-03-20T13:24:09.548Z",
+  "id": "Xa5gf2BuqaCL92Rs",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Get Gmail 2 TeleGram Msg jadavmilan009",
+  "nodes": [
+    {
+      "parameters": {
+        "operation": "get",
+        "messageId": "={{ $json.id }}"
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        -560,
+        -360
+      ],
+      "id": "e5c69e41-c154-48cc-8c45-cff81518228f",
+      "name": "Gmail",
+      "webhookId": "fb4cbd72-2de5-423f-b0ed-b4e165818b83",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "fssw8ecv9kngmkGH",
+          "name": "Gmail account 2 jadavmilan009"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "1099084635",
+        "text": "=From: {{ $json.data }}\nTo: \n\nSubject: \n{{ $('Gmail').item.json.Subject }}\n\n\n\n{{ $('Gmail').item.json.snippet }}...\n",
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "Markdown"
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        -100,
+        -360
+      ],
+      "id": "280b46c7-60b5-41c5-a384-0acdbae6e76c",
+      "name": "Telegram",
+      "webhookId": "e1d05ce1-f95d-40eb-bce1-8de3e51d3610",
+      "credentials": {
+        "telegramApi": {
+          "id": "fecNTiSkTfbK1zuN",
+          "name": "xmi1anGmail009Bot"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "let data = $input.first().json.From\nlet cleanedData1 = data.replace(\"<\", \"\")\nlet finalData = cleanedData1.replace(\">\",\"\")\nreturn {\n  data: finalData\n}"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -340,
+        -360
+      ],
+      "id": "a38a5bb9-e48a-4f7b-bf07-815a162f9955",
+      "name": "Code"
+    },
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "filters": {
+          "labelIds": [
+            "INBOX",
+            "IMPORTANT",
+            "Label_2",
+            "UNREAD",
+            "Label_2482370900981211092",
+            "CATEGORY_UPDATES",
+            "CATEGORY_PERSONAL"
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.gmailTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -780,
+        -360
+      ],
+      "id": "4e4e1c7e-5351-44c3-b0c9-61d10ef95875",
+      "name": "Gmail Trigger 009",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "fssw8ecv9kngmkGH",
+          "name": "Gmail account 2 jadavmilan009"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": {
+    "node:Gmail Trigger": {
+      "Gmail Trigger": {
+        "lastTimeChecked": 1742482211,
+        "possibleDuplicates": [
+          "195b408878d2d150"
+        ]
+      }
+    },
+    "node:Gmail Trigger 009": {
+      "Gmail Trigger 009": {
+        "lastTimeChecked": 1742707462
+      }
+    }
+  },
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2025-03-23T05:24:22.000Z",
+  "versionId": "974c9203-d907-41d2-921c-fb2e92abc6a5"
+}
