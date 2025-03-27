@@ -1,0 +1,147 @@
+{
+  "active": false,
+  "connections": {
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Ultimate Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "Ultimate Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "UserFeedBack": {
+      "ai_tool": [
+        [
+          {
+            "node": "Ultimate Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-03-22T05:56:01.269Z",
+  "id": "sVHGHdkmkwE7rDMv",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Test-Main-Flow-0",
+  "nodes": [
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4o-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        120,
+        280
+      ],
+      "id": "8711e9b7-184b-441a-b38a-d1e4e3de25a2",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "GD71nqFwGpnhQdRP",
+          "name": "OpenAi account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=user_query: {{ $json.message.text }}",
+        "options": {
+          "systemMessage": "=You are a helpful assistant.\n\nUse this id to share with other tools: {{ $json.message.chat.id }}\n\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.8,
+      "position": [
+        240,
+        40
+      ],
+      "id": "78da49eb-134b-401d-8bbc-6d8bd5ee52e2",
+      "name": "Ultimate Agent"
+    },
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -300,
+        -20
+      ],
+      "id": "5498db17-7fd1-4dbd-bda1-340d158f96b2",
+      "name": "Telegram Trigger",
+      "webhookId": "47f199b0-6302-4517-97c9-233e6be8769f",
+      "credentials": {
+        "telegramApi": {
+          "id": "3UNdGJgs6mvHdMD1",
+          "name": "HNGU_Help_Bot"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "name": "User_Feedback",
+        "description": "Call this tool when you need user permission, the_id and the_query required for reply.",
+        "workflowId": {
+          "__rl": true,
+          "value": "ij0HKlUPngsToikb",
+          "mode": "list",
+          "cachedResultName": "Response-With-Telegram"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2,
+      "position": [
+        660,
+        320
+      ],
+      "id": "ddd04504-4878-410b-bd40-6275125bb1a5",
+      "name": "UserFeedBack"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-03-22T16:52:53.000Z",
+  "versionId": "42913093-53f6-40d7-880f-c97ca21f6b42"
+}
