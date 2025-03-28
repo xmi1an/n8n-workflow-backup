@@ -244,6 +244,28 @@
           }
         ]
       ]
+    },
+    "When clicking ‘Test workflow’": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Send Reply",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "createdAt": "2025-03-16T15:45:19.501Z",
@@ -364,7 +386,8 @@
       ],
       "id": "f7319e5c-3b60-487f-9bed-291428a43d27",
       "name": "Webhook",
-      "webhookId": "8a237e1c-4d42-4ded-a6da-8b98d2a4632b"
+      "webhookId": "8a237e1c-4d42-4ded-a6da-8b98d2a4632b",
+      "disabled": true
     },
     {
       "parameters": {
@@ -895,6 +918,59 @@
           "name": "Redis account"
         }
       }
+    },
+    {
+      "parameters": {
+        "url": "https://7105.api.greenapi.com/waInstance7105215493/receiveNotification/6e3e4a33a47e4eac9f3c031a58efa914b0120f8ebf904c92be",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -1240,
+        920
+      ],
+      "id": "40d4347e-65bf-41e0-a60b-313a21ea5993",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -1580,
+        880
+      ],
+      "id": "39126b2a-1930-4d89-a56a-e698be0a2ae7",
+      "name": "When clicking ‘Test workflow’"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://7105.api.greenapi.com/waInstance7105215493/sendMessage/6e3e4a33a47e4eac9f3c031a58efa914b0120f8ebf904c92be",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "chatId",
+              "value": "919016353443@c.us"
+            },
+            {
+              "name": "message",
+              "value": "Hi three..."
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -900,
+        920
+      ],
+      "id": "775775d7-133c-4052-9280-433fadcb92c6",
+      "name": "Send Reply"
     }
   ],
   "pinData": {},
@@ -904,6 +980,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2025-03-28T04:04:09.000Z",
-  "versionId": "40c87bf3-a92e-474b-a7ac-d8573fe21321"
+  "updatedAt": "2025-03-28T05:13:52.000Z",
+  "versionId": "c252a449-ab26-423c-b7a7-2c38aae8c5fb"
 }
