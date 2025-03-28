@@ -938,11 +938,12 @@
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
       "position": [
-        -1580,
-        880
+        -1480,
+        920
       ],
       "id": "39126b2a-1930-4d89-a56a-e698be0a2ae7",
-      "name": "When clicking ‘Test workflow’"
+      "name": "When clicking ‘Test workflow’",
+      "disabled": true
     },
     {
       "parameters": {
@@ -966,11 +967,30 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        -900,
+        -940,
         920
       ],
       "id": "775775d7-133c-4052-9280-433fadcb92c6",
-      "name": "Send Reply"
+      "name": "Send Reply",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "greenapi",
+        "options": {
+          "rawBody": true
+        }
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -1820,
+        1120
+      ],
+      "id": "f964dca2-d747-4c90-ac71-10a33498d391",
+      "name": "Webhook1",
+      "webhookId": "4e4e2844-255a-4765-9473-3bd0d3090727"
     }
   ],
   "pinData": {},
@@ -980,6 +1000,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2025-03-28T05:13:52.000Z",
-  "versionId": "c252a449-ab26-423c-b7a7-2c38aae8c5fb"
+  "updatedAt": "2025-03-28T05:59:03.000Z",
+  "versionId": "7db1dacd-677f-4e06-af24-fdeda94d5b43"
 }
