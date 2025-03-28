@@ -245,22 +245,60 @@
         ]
       ]
     },
-    "When clicking ‘Test workflow’": {
+    "Webhook1": {
       "main": [
         [
           {
-            "node": "HTTP Request",
+            "node": "GetData",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "HTTP Request": {
+    "OpenAI Chat": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "RedisMemory1": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent1": {
       "main": [
         [
           {
             "node": "Send Reply",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Reply": {
+      "main": [
+        []
+      ]
+    },
+    "GetData": {
+      "main": [
+        [
+          {
+            "node": "AI Agent1",
             "type": "main",
             "index": 0
           }
@@ -921,29 +959,83 @@
     },
     {
       "parameters": {
-        "url": "https://7105.api.greenapi.com/waInstance7105215493/receiveNotification/6e3e4a33a47e4eac9f3c031a58efa914b0120f8ebf904c92be",
-        "options": {}
+        "httpMethod": "POST",
+        "path": "greenapi",
+        "options": {
+          "allowedOrigins": "*",
+          "rawBody": true
+        }
       },
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
       "position": [
-        -1240,
-        920
+        -1200,
+        820
       ],
-      "id": "40d4347e-65bf-41e0-a60b-313a21ea5993",
-      "name": "HTTP Request"
+      "id": "f964dca2-d747-4c90-ac71-10a33498d391",
+      "name": "Webhook1",
+      "webhookId": "4e4e2844-255a-4765-9473-3bd0d3090727"
     },
     {
-      "parameters": {},
-      "type": "n8n-nodes-base.manualTrigger",
-      "typeVersion": 1,
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.textMessage }}",
+        "options": {
+          "systemMessage": "Act as Whatsapp chatbot, your name is Friday.\nNo need to mention your name in random talks.\n\nWrite your response in proper format with spacing and lines.\nIf user ask about who created you:\ncreated my @xmi1an.\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.8,
       "position": [
-        -1480,
-        920
+        -660,
+        860
       ],
-      "id": "39126b2a-1930-4d89-a56a-e698be0a2ae7",
-      "name": "When clicking ‘Test workflow’",
-      "disabled": true
+      "id": "22f16663-00e5-4cd2-bc3c-0bc53eccb8b8",
+      "name": "AI Agent1"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4o-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -740,
+        1120
+      ],
+      "id": "f1d75ab8-bdb5-4a59-84a7-9f21cc6ef0ba",
+      "name": "OpenAI Chat",
+      "credentials": {
+        "openAiApi": {
+          "id": "ni4ZLtUYB3SLkvdX",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $('GetData').item.json.chatId }}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryRedisChat",
+      "typeVersion": 1.4,
+      "position": [
+        -480,
+        1140
+      ],
+      "id": "c0c64857-c68c-400c-b1fc-0f528214b8aa",
+      "name": "RedisMemory1",
+      "credentials": {
+        "redis": {
+          "id": "9sQGxgljpprmydqo",
+          "name": "Redis account"
+        }
+      }
     },
     {
       "parameters": {
@@ -954,11 +1046,15 @@
           "parameters": [
             {
               "name": "chatId",
-              "value": "919016353443@c.us"
+              "value": "={{ $json.body.senderData.sender }}"
             },
             {
               "name": "message",
-              "value": "Hi three..."
+              "value": "={{ $json.output }}"
+            },
+            {
+              "name": "quotedMessageId",
+              "value": "={{ $json.body.idMessage }}"
             }
           ]
         },
@@ -967,30 +1063,52 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        -940,
-        920
+        -180,
+        880
       ],
-      "id": "775775d7-133c-4052-9280-433fadcb92c6",
-      "name": "Send Reply",
-      "disabled": true
+      "id": "d0da735a-2d1a-4b12-8987-77c002dabb14",
+      "name": "Send Reply"
     },
     {
       "parameters": {
-        "httpMethod": "POST",
-        "path": "greenapi",
-        "options": {
-          "rawBody": true
-        }
+        "assignments": {
+          "assignments": [
+            {
+              "id": "5f2c9a21-38d2-4f52-ab2d-02e69d05fe72",
+              "name": "chatId",
+              "value": "={{ $json.body.senderData.chatId }}",
+              "type": "string"
+            },
+            {
+              "id": "ee390fed-7442-4e24-9195-65b2b3a3cef1",
+              "name": "chatName",
+              "value": "={{ $json.body.senderData.chatName }}",
+              "type": "string"
+            },
+            {
+              "id": "4e10de3e-6143-439e-b2e6-9a513870807c",
+              "name": "textMessage",
+              "value": "={{ $json.body.messageData.quotedMessage.textMessage }}",
+              "type": "string"
+            },
+            {
+              "id": "1b1f7908-ab75-427b-9659-41a0d454e7dd",
+              "name": "idMessage",
+              "value": "={{ $json.body.idMessage }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
       },
-      "type": "n8n-nodes-base.webhook",
-      "typeVersion": 2,
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
       "position": [
-        -1820,
-        1120
+        -920,
+        820
       ],
-      "id": "f964dca2-d747-4c90-ac71-10a33498d391",
-      "name": "Webhook1",
-      "webhookId": "4e4e2844-255a-4765-9473-3bd0d3090727"
+      "id": "a15a717a-314f-4717-82e2-8db14f719ba0",
+      "name": "GetData"
     }
   ],
   "pinData": {},
@@ -1000,6 +1118,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2025-03-28T05:59:03.000Z",
-  "versionId": "7db1dacd-677f-4e06-af24-fdeda94d5b43"
+  "updatedAt": "2025-03-28T06:24:32.000Z",
+  "versionId": "e0c711d3-964f-4a36-afd4-9d1af75270db"
 }
