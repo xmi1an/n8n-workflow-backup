@@ -1,0 +1,34 @@
+{
+  "active": false,
+  "connections": {},
+  "createdAt": "2025-03-28T05:54:40.314Z",
+  "id": "1OYYAUpKnP63Rf2P",
+  "meta": null,
+  "name": "My workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "greenapi",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "0d8a0b32-d05a-4a73-b008-6e8d713c75dc",
+      "name": "Webhook",
+      "webhookId": "422510d5-1af0-4f3b-8738-fbb3d073616b"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-03-28T05:54:40.314Z",
+  "versionId": "4a0affba-a146-406e-ae59-5b915f72ec14"
+}
